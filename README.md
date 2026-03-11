@@ -16,10 +16,10 @@ A complete Docker stack for controlling a real Firefox browser through the Model
 - **Service: `tester`**: An ephemeral container that runs integration tests. All test-related files (`pyproject.toml`, `uv.lock`, tests) are located in the `tests/` directory.
 
 ## Port Mapping
-| Port | Service | Purpose |
-|------|---------|---------|
-| `6080` | `firefox` | noVNC Web GUI (http://localhost:6080) |
-| `3000` | `foxmcp` | MCP HTTP endpoint (http://localhost:3000/mcp) |
+| Port | Service | Purpose                                             |
+|------|---------|-----------------------------------------------------|
+| `6080` | `firefox` | noVNC Web GUI (http://localhost:6080/vnc_lite.html)              |
+| `3000` | `foxmcp` | MCP HTTP endpoint (http://localhost:3000/mcp)       |
 | `8765` | `foxmcp` | Internal WebSocket port for extension communication |
 
 ## Deployment

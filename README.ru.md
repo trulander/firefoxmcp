@@ -18,7 +18,7 @@
 ## Порты и назначение
 | Порт | Сервис | Назначение |
 |------|---------|---------|
-| `6080` | `firefox` | Веб-интерфейс noVNC (http://localhost:6080) |
+| `6080` | `firefox` | Веб-интерфейс noVNC (http://localhost:6080/vnc_lite.html) |
 | `3000` | `foxmcp` | MCP HTTP эндпоинт (http://localhost:3000/mcp) |
 | `8765` | `foxmcp` | Внутренний порт WebSocket для связи с расширением |
 
