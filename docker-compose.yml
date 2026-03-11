@@ -1,0 +1,59 @@
+services:
+  firefox:
+    build: ./firefox
+    ports:
+      - "6080:6080"      # noVNC - open http://localhost:6080 to see the browser
+    volumes:
+      - firefox-profile:/root/.mozilla
+    depends_on:
+      foxmcp:
+        condition: service_healthy
+    restart: unless-stopped
+    shm_size: "2gb"      # Essential for large pages like Google/YouTube
+    environment:
+      - FOXMCP_WS=ws://foxmcp:8765
+      - DISPLAY=:1
+    healthcheck:
+      # Check if noVNC file listing page is available
+      test: ["CMD-SHELL", "curl -s http://localhost:6080 | grep -q 'Directory listing' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai-network
+
+  foxmcp:
+    build: ./foxmcp
+    ports:
+      - "3000:3000"      # MCP HTTP endpoint for your agents
+    restart: unless-stopped
+    healthcheck:
+      # If the server returned any jsonrpc (even a 406 error) - it means it's alive
+      test: ["CMD-SHELL", "curl -s http://localhost:3000/mcp | grep -q jsonrpc || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    networks:
+      - ai-network
+
+  tester:
+    build: 
+      context: .
+      dockerfile: tests/Dockerfile
+    depends_on:
+      foxmcp:
+        condition: service_healthy
+      firefox:
+        condition: service_healthy
+    environment:
+      - MCP_URL=http://foxmcp:3000/mcp
+    networks:
+      - ai-network
+
+volumes:
+  firefox-profile:
+
+networks:
+  ai-network:
+    name: ai-network
