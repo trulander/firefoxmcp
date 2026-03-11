@@ -1,5 +1,5 @@
 # FoxMCP: Firefox Automation via Model Context Protocol (MCP)
-[![Russian](https://img.shields.io/badge/lang-English-blue)](README.ru.md)
+[![Russian](https://img.shields.io/badge/lang-Russian-blue)](README.ru.md)
 
 A complete Docker stack for controlling a real Firefox browser through the Model Context Protocol (MCP). It provides full GUI access via noVNC and a robust HTTP endpoint for AI agents.
 
